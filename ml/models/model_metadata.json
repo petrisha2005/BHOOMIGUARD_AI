@@ -1,7 +1,7 @@
 {
   "model_name": "Logistic Regression",
   "model_version": "0.1.0",
-  "training_datetime_utc": "2026-09-14T07:31:14.177962+00:00",
+  "training_datetime_utc": "2026-09-14T10:18:23.347903+00:00",
   "random_seed": 42,
   "feature_names": [
     "project_type",
@@ -42,6 +42,110 @@
       "recall": 0.7249,
       "f1": 0.7173,
       "roc_auc": 0.8093,
+      "brier_score": 0.178911,
+      "log_loss": 0.533184,
+      "mean_predicted_probability": 0.487293,
+      "observed_positive_rate": 0.469,
+      "probability_range": [
+        0.005793,
+        0.99904
+      ],
+      "probability_distribution": [
+        104,
+        127,
+        97,
+        102,
+        91,
+        90,
+        103,
+        78,
+        117,
+        91
+      ],
+      "high_probability_counts": {
+        "0.90": 91,
+        "0.95": 40,
+        "0.99": 7,
+        "0.999": 1
+      },
+      "risk_band_distribution": {
+        "Low": 273,
+        "Moderate": 248,
+        "High": 229,
+        "Critical": 250
+      },
+      "reliability_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 104,
+          "mean_predicted_probability": 0.05833,
+          "observed_positive_rate": 0.086538
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 127,
+          "mean_predicted_probability": 0.147732,
+          "observed_positive_rate": 0.141732
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 97,
+          "mean_predicted_probability": 0.255847,
+          "observed_positive_rate": 0.257732
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 102,
+          "mean_predicted_probability": 0.350357,
+          "observed_positive_rate": 0.401961
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 91,
+          "mean_predicted_probability": 0.449191,
+          "observed_positive_rate": 0.395604
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 90,
+          "mean_predicted_probability": 0.55434,
+          "observed_positive_rate": 0.5
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 103,
+          "mean_predicted_probability": 0.649898,
+          "observed_positive_rate": 0.631068
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 78,
+          "mean_predicted_probability": 0.752753,
+          "observed_positive_rate": 0.74359
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 117,
+          "mean_predicted_probability": 0.850988,
+          "observed_positive_rate": 0.752137
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 91,
+          "mean_predicted_probability": 0.944229,
+          "observed_positive_rate": 0.923077
+        }
+      ],
       "true_positives": 340,
       "true_negatives": 392,
       "false_positives": 139,
@@ -63,6 +167,110 @@
       "recall": 0.6972,
       "f1": 0.698,
       "roc_auc": 0.8008,
+      "brier_score": 0.182753,
+      "log_loss": 0.54598,
+      "mean_predicted_probability": 0.486896,
+      "observed_positive_rate": 0.469,
+      "probability_range": [
+        0.019141,
+        0.972983
+      ],
+      "probability_distribution": [
+        52,
+        90,
+        120,
+        133,
+        137,
+        116,
+        104,
+        128,
+        96,
+        24
+      ],
+      "high_probability_counts": {
+        "0.90": 24,
+        "0.95": 4,
+        "0.99": 0,
+        "0.999": 0
+      },
+      "risk_band_distribution": {
+        "Low": 199,
+        "Moderate": 333,
+        "High": 289,
+        "Critical": 179
+      },
+      "reliability_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 52,
+          "mean_predicted_probability": 0.069934,
+          "observed_positive_rate": 0.115385
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 90,
+          "mean_predicted_probability": 0.150412,
+          "observed_positive_rate": 0.1
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 120,
+          "mean_predicted_probability": 0.252082,
+          "observed_positive_rate": 0.175
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 133,
+          "mean_predicted_probability": 0.355754,
+          "observed_positive_rate": 0.315789
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 137,
+          "mean_predicted_probability": 0.450328,
+          "observed_positive_rate": 0.467153
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 116,
+          "mean_predicted_probability": 0.5486,
+          "observed_positive_rate": 0.465517
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 104,
+          "mean_predicted_probability": 0.646922,
+          "observed_positive_rate": 0.682692
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 128,
+          "mean_predicted_probability": 0.748085,
+          "observed_positive_rate": 0.78125
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 96,
+          "mean_predicted_probability": 0.849103,
+          "observed_positive_rate": 0.822917
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 24,
+          "mean_predicted_probability": 0.928179,
+          "observed_positive_rate": 0.958333
+        }
+      ],
       "true_positives": 327,
       "true_negatives": 390,
       "false_positives": 141,
@@ -84,6 +292,110 @@
       "recall": 0.6738,
       "f1": 0.6877,
       "roc_auc": 0.7933,
+      "brier_score": 0.188281,
+      "log_loss": 0.561365,
+      "mean_predicted_probability": 0.471312,
+      "observed_positive_rate": 0.469,
+      "probability_range": [
+        0.004822,
+        0.993315
+      ],
+      "probability_distribution": [
+        139,
+        115,
+        119,
+        88,
+        89,
+        78,
+        73,
+        78,
+        115,
+        106
+      ],
+      "high_probability_counts": {
+        "0.90": 106,
+        "0.95": 37,
+        "0.99": 2,
+        "0.999": 0
+      },
+      "risk_band_distribution": {
+        "Low": 324,
+        "Moderate": 226,
+        "High": 191,
+        "Critical": 259
+      },
+      "reliability_bins": [
+        {
+          "lower": 0.0,
+          "upper": 0.1,
+          "count": 139,
+          "mean_predicted_probability": 0.055809,
+          "observed_positive_rate": 0.086331
+        },
+        {
+          "lower": 0.1,
+          "upper": 0.2,
+          "count": 115,
+          "mean_predicted_probability": 0.148509,
+          "observed_positive_rate": 0.208696
+        },
+        {
+          "lower": 0.2,
+          "upper": 0.3,
+          "count": 119,
+          "mean_predicted_probability": 0.245114,
+          "observed_positive_rate": 0.344538
+        },
+        {
+          "lower": 0.3,
+          "upper": 0.4,
+          "count": 88,
+          "mean_predicted_probability": 0.345633,
+          "observed_positive_rate": 0.375
+        },
+        {
+          "lower": 0.4,
+          "upper": 0.5,
+          "count": 89,
+          "mean_predicted_probability": 0.445841,
+          "observed_positive_rate": 0.483146
+        },
+        {
+          "lower": 0.5,
+          "upper": 0.6,
+          "count": 78,
+          "mean_predicted_probability": 0.554054,
+          "observed_positive_rate": 0.5
+        },
+        {
+          "lower": 0.6,
+          "upper": 0.7,
+          "count": 73,
+          "mean_predicted_probability": 0.654889,
+          "observed_positive_rate": 0.575342
+        },
+        {
+          "lower": 0.7,
+          "upper": 0.8,
+          "count": 78,
+          "mean_predicted_probability": 0.74778,
+          "observed_positive_rate": 0.653846
+        },
+        {
+          "lower": 0.8,
+          "upper": 0.9,
+          "count": 115,
+          "mean_predicted_probability": 0.852289,
+          "observed_positive_rate": 0.791304
+        },
+        {
+          "lower": 0.9,
+          "upper": 1.0,
+          "count": 106,
+          "mean_predicted_probability": 0.941966,
+          "observed_positive_rate": 0.877358
+        }
+      ],
       "true_positives": 316,
       "true_negatives": 397,
       "false_positives": 134,
@@ -101,6 +413,397 @@
     }
   },
   "selection_criterion": "Highest weighted score: 40% recall, 30% F1, 30% ROC-AUC. Recall is emphasized because missed delayed projects are costly in an early-warning workflow.",
+  "calibration": {
+    "base_model_type": "Logistic Regression",
+    "selected_method": "none",
+    "probability_source": "base_pipeline.predict_proba",
+    "calibration_artifact": null,
+    "evaluation": {
+      "selected_method": "none",
+      "selection_reason": "No calibration mapping was adopted: sigmoid did not meet the minimum held-out Brier improvement without worsening log loss. Isotonic was evaluated as a diagnostic only because its flexible mapping has greater overfitting risk on this synthetic prototype distribution.",
+      "strategy": "5-fold stratified out-of-fold calibration on the training partition; untouched held-out test evaluation",
+      "comparison": {
+        "none": {
+          "accuracy": 0.732,
+          "precision": 0.7098,
+          "recall": 0.7249,
+          "f1": 0.7173,
+          "roc_auc": 0.8093,
+          "brier_score": 0.178911,
+          "log_loss": 0.533184,
+          "mean_predicted_probability": 0.487293,
+          "observed_positive_rate": 0.469,
+          "probability_range": [
+            0.005793,
+            0.99904
+          ],
+          "probability_distribution": [
+            104,
+            127,
+            97,
+            102,
+            91,
+            90,
+            103,
+            78,
+            117,
+            91
+          ],
+          "high_probability_counts": {
+            "0.90": 91,
+            "0.95": 40,
+            "0.99": 7,
+            "0.999": 1
+          },
+          "risk_band_distribution": {
+            "Low": 273,
+            "Moderate": 248,
+            "High": 229,
+            "Critical": 250
+          },
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "count": 104,
+              "mean_predicted_probability": 0.05833,
+              "observed_positive_rate": 0.086538
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 127,
+              "mean_predicted_probability": 0.147732,
+              "observed_positive_rate": 0.141732
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 97,
+              "mean_predicted_probability": 0.255847,
+              "observed_positive_rate": 0.257732
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 102,
+              "mean_predicted_probability": 0.350357,
+              "observed_positive_rate": 0.401961
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 91,
+              "mean_predicted_probability": 0.449191,
+              "observed_positive_rate": 0.395604
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 90,
+              "mean_predicted_probability": 0.55434,
+              "observed_positive_rate": 0.5
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 103,
+              "mean_predicted_probability": 0.649898,
+              "observed_positive_rate": 0.631068
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 78,
+              "mean_predicted_probability": 0.752753,
+              "observed_positive_rate": 0.74359
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 117,
+              "mean_predicted_probability": 0.850988,
+              "observed_positive_rate": 0.752137
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "count": 91,
+              "mean_predicted_probability": 0.944229,
+              "observed_positive_rate": 0.923077
+            }
+          ],
+          "true_positives": 340,
+          "true_negatives": 392,
+          "false_positives": 139,
+          "false_negatives": 129,
+          "confusion_matrix": [
+            [
+              392,
+              139
+            ],
+            [
+              129,
+              340
+            ]
+          ]
+        },
+        "sigmoid": {
+          "accuracy": 0.736,
+          "precision": 0.7214,
+          "recall": 0.7122,
+          "f1": 0.7167,
+          "roc_auc": 0.8093,
+          "brier_score": 0.179026,
+          "log_loss": 0.534732,
+          "mean_predicted_probability": 0.467961,
+          "observed_positive_rate": 0.469,
+          "probability_range": [
+            0.079539,
+            0.904062
+          ],
+          "probability_distribution": [
+            45,
+            209,
+            120,
+            87,
+            76,
+            88,
+            95,
+            94,
+            179,
+            7
+          ],
+          "high_probability_counts": {
+            "0.90": 7,
+            "0.95": 0,
+            "0.99": 0,
+            "0.999": 0
+          },
+          "risk_band_distribution": {
+            "Low": 316,
+            "Moderate": 221,
+            "High": 218,
+            "Critical": 245
+          },
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "count": 45,
+              "mean_predicted_probability": 0.090608,
+              "observed_positive_rate": 0.044444
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 209,
+              "mean_predicted_probability": 0.13928,
+              "observed_positive_rate": 0.15311
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 120,
+              "mean_predicted_probability": 0.248379,
+              "observed_positive_rate": 0.291667
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 87,
+              "mean_predicted_probability": 0.347263,
+              "observed_positive_rate": 0.413793
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 76,
+              "mean_predicted_probability": 0.442475,
+              "observed_positive_rate": 0.394737
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 88,
+              "mean_predicted_probability": 0.55381,
+              "observed_positive_rate": 0.556818
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 95,
+              "mean_predicted_probability": 0.654622,
+              "observed_positive_rate": 0.631579
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 94,
+              "mean_predicted_probability": 0.759918,
+              "observed_positive_rate": 0.723404
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 179,
+              "mean_predicted_probability": 0.851724,
+              "observed_positive_rate": 0.837989
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "count": 7,
+              "mean_predicted_probability": 0.901895,
+              "observed_positive_rate": 1.0
+            }
+          ],
+          "true_positives": 334,
+          "true_negatives": 402,
+          "false_positives": 129,
+          "false_negatives": 135,
+          "confusion_matrix": [
+            [
+              402,
+              129
+            ],
+            [
+              135,
+              334
+            ]
+          ]
+        },
+        "isotonic": {
+          "accuracy": 0.735,
+          "precision": 0.744,
+          "recall": 0.6631,
+          "f1": 0.7012,
+          "roc_auc": 0.8073,
+          "brier_score": 0.178869,
+          "log_loss": 0.564311,
+          "mean_predicted_probability": 0.467454,
+          "observed_positive_rate": 0.469,
+          "probability_range": [
+            0.0,
+            1.0
+          ],
+          "probability_distribution": [
+            128,
+            123,
+            128,
+            50,
+            153,
+            57,
+            71,
+            127,
+            91,
+            72
+          ],
+          "high_probability_counts": {
+            "0.90": 72,
+            "0.95": 30,
+            "0.99": 14,
+            "0.999": 13
+          },
+          "risk_band_distribution": {
+            "Low": 251,
+            "Moderate": 331,
+            "High": 215,
+            "Critical": 203
+          },
+          "reliability_bins": [
+            {
+              "lower": 0.0,
+              "upper": 0.1,
+              "count": 128,
+              "mean_predicted_probability": 0.058421,
+              "observed_positive_rate": 0.109375
+            },
+            {
+              "lower": 0.1,
+              "upper": 0.2,
+              "count": 123,
+              "mean_predicted_probability": 0.168843,
+              "observed_positive_rate": 0.154472
+            },
+            {
+              "lower": 0.2,
+              "upper": 0.3,
+              "count": 128,
+              "mean_predicted_probability": 0.27945,
+              "observed_positive_rate": 0.289062
+            },
+            {
+              "lower": 0.3,
+              "upper": 0.4,
+              "count": 50,
+              "mean_predicted_probability": 0.319715,
+              "observed_positive_rate": 0.46
+            },
+            {
+              "lower": 0.4,
+              "upper": 0.5,
+              "count": 153,
+              "mean_predicted_probability": 0.466434,
+              "observed_positive_rate": 0.424837
+            },
+            {
+              "lower": 0.5,
+              "upper": 0.6,
+              "count": 57,
+              "mean_predicted_probability": 0.545867,
+              "observed_positive_rate": 0.561404
+            },
+            {
+              "lower": 0.6,
+              "upper": 0.7,
+              "count": 71,
+              "mean_predicted_probability": 0.657721,
+              "observed_positive_rate": 0.647887
+            },
+            {
+              "lower": 0.7,
+              "upper": 0.8,
+              "count": 127,
+              "mean_predicted_probability": 0.73108,
+              "observed_positive_rate": 0.700787
+            },
+            {
+              "lower": 0.8,
+              "upper": 0.9,
+              "count": 91,
+              "mean_predicted_probability": 0.849223,
+              "observed_positive_rate": 0.835165
+            },
+            {
+              "lower": 0.9,
+              "upper": 1.0,
+              "count": 72,
+              "mean_predicted_probability": 0.946521,
+              "observed_positive_rate": 0.944444
+            }
+          ],
+          "true_positives": 311,
+          "true_negatives": 424,
+          "false_positives": 107,
+          "false_negatives": 158,
+          "confusion_matrix": [
+            [
+              424,
+              107
+            ],
+            [
+              158,
+              311
+            ]
+          ]
+        }
+      },
+      "calibration_training_rows": 4000,
+      "held_out_evaluation_rows": 1000,
+      "random_seed": 42
+    }
+  },
   "risk_thresholds": {
     "Low": "< 25",
     "Moderate": "< 50",

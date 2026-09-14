@@ -11,6 +11,11 @@ MODEL_METADATA_PATH = MODELS_DIR / "model_metadata.json"
 MODEL_VERSION = "0.1.0"
 TEST_SIZE = 0.20
 RISK_THRESHOLDS = ((25, "Low"), (50, "Moderate"), (75, "High"), (101, "Critical"))
+CALIBRATION_CV_FOLDS = 5
+CALIBRATION_RELIABILITY_BINS = 10
+# Calibration is only adopted when it improves held-out probability reliability
+# by a meaningful amount. These prototype criteria are not operational thresholds.
+CALIBRATION_MIN_BRIER_IMPROVEMENT = 0.001
 REPORTS_DIR = ML_DIR / "reports"
 SHAP_BACKGROUND_ROWS = 200
 SHAP_GLOBAL_SAMPLE_ROWS = 1_000
