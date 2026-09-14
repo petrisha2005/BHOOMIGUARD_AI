@@ -11,4 +11,6 @@ env/
 .coverage
 htmlcov/
 .DS_Store
+frontend/dist/
+frontend/node_modules/
 ml/reports/.matplotlib/
