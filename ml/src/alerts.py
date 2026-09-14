@@ -7,11 +7,11 @@ from typing import Any, Mapping
 
 try:
     from .config import (ALERT_CATEGORY_BY_RECOMMENDATION_CATEGORY, ALERT_CRITICAL_RISK_CATEGORY,
-                         ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG, ALERT_ESCALATION_SEVERITIES,
+                         ALERT_ELIGIBLE_PRIORITIES, ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG, ALERT_ESCALATION_SEVERITIES,
                          ALERT_INITIAL_STATUS, ALERT_SEVERITY_BY_RECOMMENDATION_PRIORITY)
 except ImportError:  # Allows direct execution/import from ml/src.
     from config import (ALERT_CATEGORY_BY_RECOMMENDATION_CATEGORY, ALERT_CRITICAL_RISK_CATEGORY,
-                        ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG, ALERT_ESCALATION_SEVERITIES,
+                        ALERT_ELIGIBLE_PRIORITIES, ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG, ALERT_ESCALATION_SEVERITIES,
                         ALERT_INITIAL_STATUS, ALERT_SEVERITY_BY_RECOMMENDATION_PRIORITY)
 
 
@@ -52,6 +52,8 @@ def generate_alerts(project_id: str, recommendation_output: Mapping[str, Any]) -
     overall_risk = recommendation_output["overall_risk"]
     unique_recommendations: dict[str, Mapping[str, Any]] = {}
     for recommendation in recommendation_output.get("recommendations", []):
+        if recommendation.get("priority") not in ALERT_ELIGIBLE_PRIORITIES:
+            continue
         category = str(recommendation["category"])
         unique_recommendations.setdefault(category, recommendation)
 

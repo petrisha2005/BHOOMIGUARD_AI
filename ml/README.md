@@ -94,11 +94,15 @@ For example, positive SHAP contributions from `Compensation Pending Cases` and `
 
 Priority and deadline rules are centralized in `config.py`: Critical (2 days), High (5), Medium (10), and Low (21). A recommendation becomes Critical only when overall risk is Critical and the grouped model evidence is strong; the system does not label every action Critical. Recommendations are model-guided interventions, not proof of real-world causality, and should be recalculated after material project updates.
 
+### Prototype decision policy
+
+Positive SHAP factors are first aggregated by action category. A category becomes an intervention recommendation only when both the overall risk category and its summed positive contribution pass the conservative prototype rules in `config.py`. Weak or Low-risk contributors are retained in `monitoring_signals`, but do not create officer interventions. These are prototype decision rules, not validated government operational thresholds.
+
 ## Alert & Escalation System
 
 `src/alerts.py` completes the deterministic chain: **Prediction → SHAP explanation → Recommendation → Alert → Escalation**. `generate_alerts(project_id, recommendation_output)` creates one `OPEN` alert for each distinct Stage 4 recommendation category. Each alert retains the recommendation's SHAP-backed reason and trigger, recommended action, responsible role, deadline, and monitoring instruction, so a future API or frontend can present the full explanation chain.
 
-For example, a Compensation recommendation for a project with High risk produces a `COMPENSATION` alert for the Compensation/Finance Officer. It uses a stable project/category/action-derived ID, a High severity, the five-day recommendation deadline, and escalation when the recommendation requires it. Critical project risk can upgrade an urgent High recommendation to Critical; Medium and Low alerts remain follow-up and routine-monitoring items. No email, SMS, persistence, acknowledgement workflow, or risk recalculation is performed in this stage.
+For example, a Compensation recommendation for a project with High risk produces a `COMPENSATION` alert for the Compensation/Finance Officer. It uses a stable project/category/action-derived ID, a High severity, the five-day recommendation deadline, and escalation when the recommendation requires it. Critical project risk can upgrade an eligible High recommendation to Critical. Low-priority monitoring-only signals do not create `OPEN` alerts; eligible Medium recommendations create non-escalated operational alerts. No email, SMS, persistence, acknowledgement workflow, or risk recalculation is performed in this stage.
 
 ## What-If Scenario Simulator
 
@@ -106,7 +110,7 @@ For example, a Compensation recommendation for a project with High risk produces
 
 For example, an officer can change `compensation_completion_pct` from 45 to 90, `documentation_completion_pct` from 60 to 95, and `pending_approvals` from 3 to 0. The response reports baseline and scenario risk scores, the percentage-point difference, category transition, exact before/after inputs, and a machine-generated projection statement. Scenario values are constrained to the original schema's numerical ranges and known categorical values, including valid state/district combinations.
 
-This is a **model-based projection**, not a guaranteed real-world outcome. The current saved classifier does not predict delay duration, so `delay_days_change` is explicitly unavailable until the planned duration-regression model is implemented; no arbitrary delay-day estimate is created.
+This is a **model-based projection**, not a guaranteed real-world outcome. The current saved classifier does not predict delay duration, so `delay_days_change` is explicitly unavailable until the planned duration-regression model is implemented; no arbitrary delay-day estimate is created. Scenario changes outside observed synthetic-training support are rejected; changes near the outer 1% of observed support run but are explicitly marked as `edge_of_training_support`.
 
 ## Core pipeline integration
 

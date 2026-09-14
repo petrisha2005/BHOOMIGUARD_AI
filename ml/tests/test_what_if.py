@@ -44,7 +44,7 @@ def test_risk_comparison_transition_and_interpretation_are_consistent() -> None:
 
 def test_increased_risk_scenario_is_detected() -> None:
     record = _record()
-    result = simulate_scenario(record, {"legal_disputes": record["legal_disputes"] + 10})
+    result = simulate_scenario(record, {"legal_disputes": 7})
     assert result["impact"]["risk_increased"] is True
     assert "increases predicted delay risk" in result["interpretation"]
 
@@ -52,9 +52,9 @@ def test_increased_risk_scenario_is_detected() -> None:
 def test_risk_category_transition_is_reported() -> None:
     record = _record()
     result = simulate_scenario(record, {
-        "legal_disputes": 20, "ownership_conflicts": 45, "pending_court_cases": 60,
-        "pending_approvals": 30, "approval_delay_days": 500, "historical_delay_rate": 1,
-        "previous_stage_delay_days": 600,
+        "legal_disputes": 7, "ownership_conflicts": 21, "pending_court_cases": 9,
+        "pending_approvals": 12, "approval_delay_days": 171, "historical_delay_rate": 1,
+        "previous_stage_delay_days": 266,
     })
     assert result["impact"]["risk_category_transition"] == "High → Critical"
 
@@ -71,6 +71,18 @@ def test_invalid_scenario_changes_are_rejected(changes: dict) -> None:
 def test_invalid_state_district_combination_is_rejected() -> None:
     with pytest.raises(ValueError, match="not valid for state"):
         simulate_scenario(_record(), {"state": "Karnataka", "district": "Chennai"})
+
+
+def test_scenario_outside_observed_training_support_is_rejected() -> None:
+    with pytest.raises(ValueError, match="outside observed training support"):
+        simulate_scenario(_record(), {"legal_disputes": 20})
+
+
+def test_edge_of_training_support_is_explicitly_reported() -> None:
+    record = _record()
+    result = simulate_scenario(record, {"legal_disputes": 7})
+    assert result["training_support"]["status"] == "edge_of_training_support"
+    assert result["training_support"]["feature_statuses"]["legal_disputes"] == "edge_of_training_support"
 
 
 def test_same_input_produces_deterministic_output() -> None:

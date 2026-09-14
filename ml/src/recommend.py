@@ -7,11 +7,15 @@ from typing import Any, Mapping
 
 try:
     from .config import (CRITICAL_CONTRIBUTION_THRESHOLD, PRIORITY_DEADLINE_DAYS,
-                         RECOMMENDATION_FEATURE_CATEGORIES, RECOMMENDATION_TEMPLATES, RISK_CATEGORY_PRIORITY)
+                         RECOMMENDATION_ACTIONABLE_RISK_CATEGORIES, RECOMMENDATION_FEATURE_CATEGORIES,
+                         RECOMMENDATION_LOW_RISK_CLEAR_BOTTLENECK_CONTRIBUTION,
+                         RECOMMENDATION_MIN_CATEGORY_CONTRIBUTION, RECOMMENDATION_TEMPLATES, RISK_CATEGORY_PRIORITY)
     from .explain import explain_prediction
 except ImportError:  # Allows direct execution/import from ml/src.
     from config import (CRITICAL_CONTRIBUTION_THRESHOLD, PRIORITY_DEADLINE_DAYS,
-                        RECOMMENDATION_FEATURE_CATEGORIES, RECOMMENDATION_TEMPLATES, RISK_CATEGORY_PRIORITY)
+                        RECOMMENDATION_ACTIONABLE_RISK_CATEGORIES, RECOMMENDATION_FEATURE_CATEGORIES,
+                        RECOMMENDATION_LOW_RISK_CLEAR_BOTTLENECK_CONTRIBUTION,
+                        RECOMMENDATION_MIN_CATEGORY_CONTRIBUTION, RECOMMENDATION_TEMPLATES, RISK_CATEGORY_PRIORITY)
     from explain import explain_prediction
 
 
@@ -36,6 +40,16 @@ def _factor_description(factor: Mapping[str, Any]) -> str:
     return f"{factor['feature']} (SHAP +{float(factor['shap_value']):.3f})"
 
 
+def _is_actionable(risk_category: str, category_contribution: float) -> bool:
+    """Require both eligible project risk and aggregated category-level model evidence."""
+    if risk_category == "Low":
+        return category_contribution >= RECOMMENDATION_LOW_RISK_CLEAR_BOTTLENECK_CONTRIBUTION
+    return (
+        risk_category in RECOMMENDATION_ACTIONABLE_RISK_CATEGORIES
+        and category_contribution >= RECOMMENDATION_MIN_CATEGORY_CONTRIBUTION
+    )
+
+
 def generate_recommendations(
     record: Mapping[str, Any], explanation: Mapping[str, Any] | None = None, top_k: int = 15,
 ) -> dict[str, Any]:
@@ -55,14 +69,24 @@ def generate_recommendations(
             grouped[category].append(factor)
 
     recommendations: list[dict[str, Any]] = []
+    monitoring_signals: list[dict[str, Any]] = []
     for category, factors in grouped.items():
+        category_contribution = sum(float(factor["shap_value"]) for factor in factors)
         strongest = max(abs(float(factor["shap_value"])) for factor in factors)
-        priority = _priority(risk_category, strongest)
         template = RECOMMENDATION_TEMPLATES[category]
         trigger = "; ".join(_factor_description(factor) for factor in factors)
+        if not _is_actionable(risk_category, category_contribution):
+            monitoring_signals.append({
+                "category": category, "category_contribution": round(category_contribution, 6),
+                "trigger": trigger, "reason": f"Model factors increasing predicted risk: {trigger}.",
+                "factors": list(factors), "actionable": False,
+            })
+            continue
+        priority = _priority(risk_category, strongest)
         recommendations.append({
             "category": category, "priority": priority, "action": template["action"],
             "reason": f"Model factors increasing predicted risk: {trigger}.", "trigger": trigger,
+            "category_contribution": round(category_contribution, 6),
             "responsible_role": template["responsible_role"],
             "suggested_deadline_days": PRIORITY_DEADLINE_DAYS[priority],
             "escalation_required": priority in {"CRITICAL", "HIGH"}, "monitoring": template["monitoring"],
@@ -72,5 +96,6 @@ def generate_recommendations(
     return {
         "overall_risk": {key: explanation[key] for key in ("delay_probability", "risk_score", "risk_category", "predicted_delay")},
         "recommendations": recommendations,
+        "monitoring_signals": monitoring_signals,
         "monitoring_note": "Recalculate risk after material intervention updates; recommendations are model-guided, not causal findings.",
     }

@@ -54,6 +54,20 @@ def test_low_risk_or_reducing_factors_do_not_create_actions() -> None:
     assert result["recommendations"] == []
 
 
+def test_low_risk_tiny_positive_factor_is_preserved_as_monitoring_not_intervention() -> None:
+    result = generate_recommendations(_record(), _explanation("Low", [_factor("missing_documents", .12)]))
+    assert result["recommendations"] == []
+    assert result["monitoring_signals"][0]["category"] == "Documentation"
+    assert result["monitoring_signals"][0]["category_contribution"] == .12
+
+
+def test_related_category_factors_are_aggregated_for_eligibility() -> None:
+    factors = [_factor("pending_approvals", .16), _factor("approval_delay_days", .16)]
+    result = generate_recommendations(_record(), _explanation("Moderate", factors))
+    assert result["recommendations"][0]["category"] == "Approvals"
+    assert result["recommendations"][0]["category_contribution"] == .32
+
+
 def test_recommendation_contract_priorities_and_deadlines_are_valid() -> None:
     result = generate_recommendations(_record(), _explanation("Moderate", [_factor("pending_approvals")]))
     recommendation = result["recommendations"][0]

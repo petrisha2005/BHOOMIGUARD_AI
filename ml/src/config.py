@@ -115,6 +115,12 @@ PRIORITY_DEADLINE_DAYS = {"CRITICAL": 2, "HIGH": 5, "MEDIUM": 10, "LOW": 21}
 RISK_CATEGORY_PRIORITY = {"Critical": "HIGH", "High": "HIGH", "Moderate": "MEDIUM", "Low": "LOW"}
 CRITICAL_CONTRIBUTION_THRESHOLD = 0.35
 
+# Phase 1 prototype decision rules. These are deliberately conservative and are
+# not government operational thresholds or probability-calibration claims.
+RECOMMENDATION_MIN_CATEGORY_CONTRIBUTION = 0.30
+RECOMMENDATION_LOW_RISK_CLEAR_BOTTLENECK_CONTRIBUTION = 1.00
+RECOMMENDATION_ACTIONABLE_RISK_CATEGORIES = ("Moderate", "High", "Critical")
+
 # Step 5: deterministic alert and escalation configuration.
 ALERT_CATEGORY_BY_RECOMMENDATION_CATEGORY = {
     "Compensation": "COMPENSATION", "Legal / Ownership": "LEGAL_OWNERSHIP",
@@ -130,6 +136,7 @@ ALERT_INITIAL_STATUS = "OPEN"
 ALERT_CRITICAL_RISK_CATEGORY = "Critical"
 ALERT_ESCALATION_SEVERITIES = ("CRITICAL",)
 ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG = True
+ALERT_ELIGIBLE_PRIORITIES = ("MEDIUM", "HIGH", "CRITICAL")
 
 # Step 6: What-If input constraints and interpretation thresholds.
 SCENARIO_PERCENTAGE_FEATURES = tuple(column for column in NUMERICAL_COLUMNS if column.endswith("_pct"))

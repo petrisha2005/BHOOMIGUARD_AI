@@ -20,7 +20,7 @@ def _output(risk_category: str = "High", recommendations: list[dict] | None = No
 
 @pytest.mark.parametrize(("priority", "risk_category", "expected"), [
     ("HIGH", "High", "HIGH"), ("CRITICAL", "Critical", "CRITICAL"),
-    ("MEDIUM", "Moderate", "MEDIUM"), ("LOW", "Low", "LOW"),
+    ("MEDIUM", "Moderate", "MEDIUM"),
 ])
 def test_alert_severity_follows_controlled_priority_mapping(priority: str, risk_category: str, expected: str) -> None:
     alert = generate_alerts("BG-100", _output(risk_category, [_recommendation(priority=priority)]))[0]
@@ -70,6 +70,10 @@ def test_distinct_recommendations_create_distinct_alerts() -> None:
 
 def test_no_recommendations_produces_no_inappropriate_alerts() -> None:
     assert generate_alerts("BG-100", _output("Low")) == []
+
+
+def test_low_priority_recommendation_is_monitoring_only_not_an_open_alert() -> None:
+    assert generate_alerts("BG-100", _output("Low", [_recommendation(priority="LOW", escalation=False)])) == []
 
 
 def test_alert_contract_contains_required_fields() -> None:

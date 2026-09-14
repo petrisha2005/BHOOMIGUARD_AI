@@ -24,8 +24,8 @@ def test_lower_risk_project_runs_through_full_pipeline() -> None:
     assert 0 <= result["prediction"]["risk_score"] <= 100
     assert result["prediction"]["risk_category"] == "Low"
     assert result["prediction"]["risk_score"] == result["explanation"]["risk_score"]
-    assert isinstance(result["recommendations"]["recommendations"], list)
-    assert isinstance(result["alerts"], list)
+    assert result["recommendations"]["recommendations"] == []
+    assert result["alerts"] == []
 
 
 def test_high_risk_project_keeps_shap_recommendation_alert_traceability() -> None:
