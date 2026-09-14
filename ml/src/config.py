@@ -130,3 +130,14 @@ ALERT_INITIAL_STATUS = "OPEN"
 ALERT_CRITICAL_RISK_CATEGORY = "Critical"
 ALERT_ESCALATION_SEVERITIES = ("CRITICAL",)
 ALERT_ESCALATE_HIGH_WITH_RECOMMENDATION_FLAG = True
+
+# Step 6: What-If input constraints and interpretation thresholds.
+SCENARIO_PERCENTAGE_FEATURES = tuple(column for column in NUMERICAL_COLUMNS if column.endswith("_pct"))
+SCENARIO_UNIT_INTERVAL_FEATURES = ("historical_delay_rate",)
+SCENARIO_INTEGER_FEATURES = tuple(
+    column for column in NUMERICAL_COLUMNS
+    if column not in SCENARIO_PERCENTAGE_FEATURES + SCENARIO_UNIT_INTERVAL_FEATURES + ("land_area_acres",)
+)
+SCENARIO_MINIMUMS = {"land_area_acres": 0, "affected_families": 0, "villages_affected": 0,
+                     "days_in_current_stage": 0, "days_remaining_to_target": 0}
+SCENARIO_MEANINGFUL_RISK_CHANGE_POINTS = 1.0

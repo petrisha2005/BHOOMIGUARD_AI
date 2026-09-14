@@ -99,3 +99,11 @@ Priority and deadline rules are centralized in `config.py`: Critical (2 days), H
 `src/alerts.py` completes the deterministic chain: **Prediction → SHAP explanation → Recommendation → Alert → Escalation**. `generate_alerts(project_id, recommendation_output)` creates one `OPEN` alert for each distinct Stage 4 recommendation category. Each alert retains the recommendation's SHAP-backed reason and trigger, recommended action, responsible role, deadline, and monitoring instruction, so a future API or frontend can present the full explanation chain.
 
 For example, a Compensation recommendation for a project with High risk produces a `COMPENSATION` alert for the Compensation/Finance Officer. It uses a stable project/category/action-derived ID, a High severity, the five-day recommendation deadline, and escalation when the recommendation requires it. Critical project risk can upgrade an urgent High recommendation to Critical; Medium and Low alerts remain follow-up and routine-monitoring items. No email, SMS, persistence, acknowledgement workflow, or risk recalculation is performed in this stage.
+
+## What-If Scenario Simulator
+
+`src/what_if.py` lets officers simulate potential interventions before acting. `simulate_scenario(original, changes)` copies the original project input, validates one or more changed model features, reruns the existing saved `predict_case` pipeline for baseline and scenario inputs, and reports the combined projected risk impact. It does not retrain or use a separate what-if model.
+
+For example, an officer can change `compensation_completion_pct` from 45 to 90, `documentation_completion_pct` from 60 to 95, and `pending_approvals` from 3 to 0. The response reports baseline and scenario risk scores, the percentage-point difference, category transition, exact before/after inputs, and a machine-generated projection statement. Scenario values are constrained to the original schema's numerical ranges and known categorical values, including valid state/district combinations.
+
+This is a **model-based projection**, not a guaranteed real-world outcome. The current saved classifier does not predict delay duration, so `delay_days_change` is explicitly unavailable until the planned duration-regression model is implemented; no arbitrary delay-day estimate is created.
