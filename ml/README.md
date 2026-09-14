@@ -107,3 +107,9 @@ For example, a Compensation recommendation for a project with High risk produces
 For example, an officer can change `compensation_completion_pct` from 45 to 90, `documentation_completion_pct` from 60 to 95, and `pending_approvals` from 3 to 0. The response reports baseline and scenario risk scores, the percentage-point difference, category transition, exact before/after inputs, and a machine-generated projection statement. Scenario values are constrained to the original schema's numerical ranges and known categorical values, including valid state/district combinations.
 
 This is a **model-based projection**, not a guaranteed real-world outcome. The current saved classifier does not predict delay duration, so `delay_days_change` is explicitly unavailable until the planned duration-regression model is implemented; no arbitrary delay-day estimate is created.
+
+## Core pipeline integration
+
+`src/pipeline.py` is a thin, service-independent orchestration layer for one project snapshot: **project input → saved-model prediction → SHAP explanation → structured recommendations → structured alerts**. `run_project_pipeline(project_input)` requires `project_id` only for stable alert identity; it is never included in model features. The prediction is created once with `predict_case`, then passed to `explain_prediction`, while the resulting explanation is passed to `generate_recommendations`; this preserves one shared source of truth instead of duplicating decision logic.
+
+What-if simulation remains separate: `simulate_scenario(project_input, changes)` invokes the same `predict_case` contract for both baseline and scenario inputs and retains the explicit unavailable delay-duration fields. No API, persistence, or notification system is part of this integration layer.

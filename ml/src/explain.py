@@ -66,7 +66,7 @@ def _readable_feature(transformed_name: str) -> tuple[str, str | None, str | Non
 
 def explain_prediction(
     record: Mapping[str, Any], top_k: int = 5, model_path: Path = CLASSIFIER_MODEL_PATH,
-    reference_data: pd.DataFrame | None = None,
+    reference_data: pd.DataFrame | None = None, prediction: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Return non-causal, per-feature SHAP contributions for one saved-model prediction.
 
@@ -97,7 +97,7 @@ def explain_prediction(
         if category is not None:
             item["encoded_value"] = int(transformed.iloc[0, index])
         factors.append(item)
-    prediction = predict_case(record, model_path)
+    prediction = prediction or predict_case(record, model_path)
     return {
         "delay_probability": prediction["delay_probability"], "risk_score": prediction["risk_score"],
         "risk_category": prediction["risk_category"], "predicted_delay": prediction["predicted_delay"],
