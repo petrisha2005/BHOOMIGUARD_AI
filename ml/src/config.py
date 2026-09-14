@@ -65,3 +65,52 @@ FEATURE_DISPLAY_NAMES = {
     "historical_delay_rate": "Historical Delay Rate", "days_remaining_to_target": "Days Remaining to Target",
     "previous_stage_delay_days": "Previous Stage Delay (Days)",
 }
+
+# Step 4: deterministic mappings from model factors to officer interventions.
+RECOMMENDATION_FEATURE_CATEGORIES = {
+    "compensation_completion_pct": "Compensation", "compensation_pending_cases": "Compensation",
+    "average_compensation_delay_days": "Compensation",
+    "legal_disputes": "Legal / Ownership", "ownership_conflicts": "Legal / Ownership",
+    "pending_court_cases": "Legal / Ownership", "documentation_completion_pct": "Documentation",
+    "missing_documents": "Documentation", "pending_approvals": "Approvals",
+    "approval_delay_days": "Approvals", "rehabilitation_completion_pct": "Rehabilitation & Resettlement",
+    "resettlement_completion_pct": "Rehabilitation & Resettlement",
+    "affected_families_rehabilitated": "Rehabilitation & Resettlement",
+    "stakeholder_response_delay_days": "Inter-department Coordination",
+    "days_in_current_stage": "Inter-department Coordination",
+}
+RECOMMENDATION_TEMPLATES = {
+    "Compensation": {
+        "action": "Verify pending compensation records, payment approvals, and beneficiary details; escalate unresolved cases.",
+        "responsible_role": "Compensation/Finance Officer",
+        "monitoring": "Track pending compensation cases and payment-approval ageing until closure.",
+    },
+    "Legal / Ownership": {
+        "action": "Initiate ownership-document verification and refer unresolved disputes or court matters for legal review.",
+        "responsible_role": "Legal Officer",
+        "monitoring": "Track disputed parcels, legal-review status, and pending court-case milestones.",
+    },
+    "Documentation": {
+        "action": "Identify incomplete records, assign document verification, and set a completion deadline.",
+        "responsible_role": "Documentation/Records Officer",
+        "monitoring": "Track missing-document count and documentation-completion percentage.",
+    },
+    "Approvals": {
+        "action": "Identify the pending approval authority, follow up on overdue approvals, and record a decision deadline.",
+        "responsible_role": "Land Acquisition Officer",
+        "monitoring": "Track pending approvals and approval-delay ageing until resolution.",
+    },
+    "Rehabilitation & Resettlement": {
+        "action": "Review pending rehabilitation and resettlement actions; verify affected-family rehabilitation status.",
+        "responsible_role": "R&R Officer",
+        "monitoring": "Track rehabilitation, resettlement, and affected-family completion progress.",
+    },
+    "Inter-department Coordination": {
+        "action": "Assign a project coordinator, schedule an inter-department follow-up, and escalate unresolved blockers.",
+        "responsible_role": "Project Coordinator",
+        "monitoring": "Track stakeholder response delays and time spent in the current acquisition stage.",
+    },
+}
+PRIORITY_DEADLINE_DAYS = {"CRITICAL": 2, "HIGH": 5, "MEDIUM": 10, "LOW": 21}
+RISK_CATEGORY_PRIORITY = {"Critical": "HIGH", "High": "HIGH", "Moderate": "MEDIUM", "Low": "LOW"}
+CRITICAL_CONTRIBUTION_THRESHOLD = 0.35

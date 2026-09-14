@@ -85,3 +85,11 @@ One-hot categories are kept as separate transformed contributions (for example, 
 `get_global_feature_importance()` ranks mean absolute SHAP values over a deterministic representative sample (up to 1,000 supplied prototype rows; 200 background rows). It describes general model behavior across that data; it is not a causal ranking of real-world causes. Development plots can be saved with `save_global_importance_plot()` and `save_individual_explanation_plot(record)` under `reports/`.
 
 **SHAP explains how input features contributed to an individual model prediction. It should not be interpreted as proof that a feature caused the real-world delay.** These explanations are further limited by the synthetic dataset and require validation against authorized deployment data. A future LLM may phrase the structured explanation, but must not select or invent risk contributors.
+
+## Action & Recommendation Engine
+
+`src/recommend.py` is a deterministic rules layer between SHAP and future alerting. Prediction tells an officer the current risk; SHAP provides the model factors; `generate_recommendations(record)` converts positive SHAP risk contributors into role-owned interventions, deadlines, escalation flags, and monitoring instructions. It never uses an LLM or infers factors independently.
+
+For example, positive SHAP contributions from `Compensation Pending Cases` and `Average Compensation Delay` produce one de-duplicated **Compensation** recommendation for the Compensation/Finance Officer. Its reason preserves the actual factor names and SHAP values, its action requests verification and escalation of unresolved cases, and its monitoring tracks pending cases and payment-approval ageing.
+
+Priority and deadline rules are centralized in `config.py`: Critical (2 days), High (5), Medium (10), and Low (21). A recommendation becomes Critical only when overall risk is Critical and the grouped model evidence is strong; the system does not label every action Critical. Recommendations are model-guided interventions, not proof of real-world causality, and should be recalculated after material project updates.
