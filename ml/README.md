@@ -93,3 +93,9 @@ One-hot categories are kept as separate transformed contributions (for example, 
 For example, positive SHAP contributions from `Compensation Pending Cases` and `Average Compensation Delay` produce one de-duplicated **Compensation** recommendation for the Compensation/Finance Officer. Its reason preserves the actual factor names and SHAP values, its action requests verification and escalation of unresolved cases, and its monitoring tracks pending cases and payment-approval ageing.
 
 Priority and deadline rules are centralized in `config.py`: Critical (2 days), High (5), Medium (10), and Low (21). A recommendation becomes Critical only when overall risk is Critical and the grouped model evidence is strong; the system does not label every action Critical. Recommendations are model-guided interventions, not proof of real-world causality, and should be recalculated after material project updates.
+
+## Alert & Escalation System
+
+`src/alerts.py` completes the deterministic chain: **Prediction → SHAP explanation → Recommendation → Alert → Escalation**. `generate_alerts(project_id, recommendation_output)` creates one `OPEN` alert for each distinct Stage 4 recommendation category. Each alert retains the recommendation's SHAP-backed reason and trigger, recommended action, responsible role, deadline, and monitoring instruction, so a future API or frontend can present the full explanation chain.
+
+For example, a Compensation recommendation for a project with High risk produces a `COMPENSATION` alert for the Compensation/Finance Officer. It uses a stable project/category/action-derived ID, a High severity, the five-day recommendation deadline, and escalation when the recommendation requires it. Critical project risk can upgrade an urgent High recommendation to Critical; Medium and Low alerts remain follow-up and routine-monitoring items. No email, SMS, persistence, acknowledgement workflow, or risk recalculation is performed in this stage.
