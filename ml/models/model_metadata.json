@@ -1,0 +1,112 @@
+{
+  "model_name": "Logistic Regression",
+  "model_version": "0.1.0",
+  "training_datetime_utc": "2026-09-14T07:31:14.177962+00:00",
+  "random_seed": 42,
+  "feature_names": [
+    "project_type",
+    "state",
+    "district",
+    "current_stage",
+    "land_area_acres",
+    "affected_families",
+    "villages_affected",
+    "legal_disputes",
+    "ownership_conflicts",
+    "pending_court_cases",
+    "documentation_completion_pct",
+    "missing_documents",
+    "compensation_completion_pct",
+    "compensation_pending_cases",
+    "average_compensation_delay_days",
+    "rehabilitation_completion_pct",
+    "resettlement_completion_pct",
+    "affected_families_rehabilitated",
+    "pending_approvals",
+    "approval_delay_days",
+    "stakeholder_response_delay_days",
+    "days_in_current_stage",
+    "possession_completion_pct",
+    "historical_delay_rate",
+    "days_remaining_to_target",
+    "previous_stage_delay_days"
+  ],
+  "target": "delay_flag",
+  "train_size": 4000,
+  "test_size": 1000,
+  "dataset_path": "/Users/patriciav/Documents/BHOOMIGUARD/ml/data/raw/land_acquisition_cases.csv",
+  "evaluation_metrics": {
+    "Logistic Regression": {
+      "accuracy": 0.732,
+      "precision": 0.7098,
+      "recall": 0.7249,
+      "f1": 0.7173,
+      "roc_auc": 0.8093,
+      "true_positives": 340,
+      "true_negatives": 392,
+      "false_positives": 139,
+      "false_negatives": 129,
+      "confusion_matrix": [
+        [
+          392,
+          139
+        ],
+        [
+          129,
+          340
+        ]
+      ]
+    },
+    "Random Forest": {
+      "accuracy": 0.717,
+      "precision": 0.6987,
+      "recall": 0.6972,
+      "f1": 0.698,
+      "roc_auc": 0.8008,
+      "true_positives": 327,
+      "true_negatives": 390,
+      "false_positives": 141,
+      "false_negatives": 142,
+      "confusion_matrix": [
+        [
+          390,
+          141
+        ],
+        [
+          142,
+          327
+        ]
+      ]
+    },
+    "XGBoost": {
+      "accuracy": 0.713,
+      "precision": 0.7022,
+      "recall": 0.6738,
+      "f1": 0.6877,
+      "roc_auc": 0.7933,
+      "true_positives": 316,
+      "true_negatives": 397,
+      "false_positives": 134,
+      "false_negatives": 153,
+      "confusion_matrix": [
+        [
+          397,
+          134
+        ],
+        [
+          153,
+          316
+        ]
+      ]
+    }
+  },
+  "selection_criterion": "Highest weighted score: 40% recall, 30% F1, 30% ROC-AUC. Recall is emphasized because missed delayed projects are costly in an early-warning workflow.",
+  "risk_thresholds": {
+    "Low": "< 25",
+    "Moderate": "< 50",
+    "High": "< 75",
+    "Critical": "< 101"
+  },
+  "synthetic_data_disclaimer": "Performance is measured on synthetic prototype data and does not establish real-world government deployment accuracy.",
+  "duration_regression_status": "Placeholder only; Step 2A will implement actual_delay_days regression."
+}
