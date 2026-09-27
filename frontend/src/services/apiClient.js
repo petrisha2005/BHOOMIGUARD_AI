@@ -1,4 +1,7 @@
+import { demoResponse } from './demoApi'
+
 const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || '/api').replace(/\/$/, '')
+const demoMode = import.meta.env.VITE_DEMO_MODE === 'true'
 
 function errorMessage(detail, fallback) {
   if (typeof detail === 'string' && detail.trim()) return detail
@@ -13,18 +16,26 @@ function errorMessage(detail, fallback) {
 }
 
 export async function apiRequest(path, options = {}) {
+  if (demoMode) return demoResponse(path, options)
   const token = sessionStorage.getItem('bhoomiguard_access_token')
-  const response = await fetch(`${apiBaseUrl}${path}`, {
-    ...options,
-    headers: {
-      ...(options.body ? { 'Content-Type': 'application/json' } : {}),
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
-    },
-  })
+  let response
+  try {
+    response = await fetch(`${apiBaseUrl}${path}`, {
+      ...options,
+      headers: {
+        ...(options.body ? { 'Content-Type': 'application/json' } : {}),
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers,
+      },
+    })
+  } catch {
+    throw new Error('BhoomiGuard API is unavailable. Start the FastAPI server and configure its PostgreSQL DATABASE_URL before signing in.')
+  }
 
   if (!response.ok) {
-    let detail = `Request failed (HTTP ${response.status}).`
+    let detail = response.status === 502 || response.status === 503
+      ? 'BhoomiGuard API is unavailable. Start the FastAPI server and configure its PostgreSQL DATABASE_URL before signing in.'
+      : `Request failed (HTTP ${response.status}).`
     try {
       const payload = await response.json()
       detail = errorMessage(payload.detail, detail)

@@ -8,6 +8,7 @@ import { CasesPage } from './pages/CasesPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { InterventionsPage } from './pages/InterventionsPage'
 import { LoginPage } from './pages/LoginPage'
+import { HomePage } from './pages/HomePage'
 import { MapPage } from './pages/MapPage'
 import { ProjectDetailPage } from './pages/ProjectDetailPage'
 import { ProjectCreatePage, ProjectEditPage } from './pages/ProjectEditorPages'
@@ -22,7 +23,7 @@ import './App.css'
 function NotFoundPage() { return <section className="page-content"><div className="state-panel"><b>Page not found.</b><p>The requested BhoomiGuard workspace route does not exist.</p><button className="primary-button" type="button" onClick={() => navigate('/dashboard')}>Open dashboard</button></div></section> }
 
 function RoutedWorkspace({ path }) {
-  if (path === '/dashboard' || path === '/') return <DashboardPage />
+  if (path === '/dashboard') return <DashboardPage />
   if (path === '/projects/new') return <ProjectCreatePage />
   if (path === '/projects/import') return <ProjectImportPage />
   if (/^\/projects\/[^/]+\/edit$/.test(path)) return <ProjectEditPage projectId={path.split('/')[2]} />
@@ -50,12 +51,14 @@ function App() {
     return () => window.removeEventListener('bhoomiguard-auth-required', requireLogin)
   }, [])
   useEffect(() => {
+    if (path === '/') return undefined
     let active = true
     getAuthenticationStatus()
       .then((status) => { if (active) setAuthRequired(Boolean(status?.auth_required)) })
       .catch((error) => { if (active) setAuthStatusError(error.message || 'Unable to verify access configuration.') })
     return () => { active = false }
-  }, [])
+  }, [path])
+  if (path === '/') return <HomePage />
   if (path === '/login') return <LoginPage authRequired={authRequired} />
   if (authStatusError) return <LoginPage accessMessage={authStatusError} />
   if (authRequired === null) return <LoginPage accessMessage="Checking workspace access…" />

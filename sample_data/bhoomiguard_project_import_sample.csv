@@ -1,0 +1,21 @@
+project_code,name,project_type,state,district,current_stage,land_area_acres,affected_families,villages_affected,legal_disputes,ownership_conflicts,pending_court_cases,documentation_completion_pct,missing_documents,compensation_completion_pct,compensation_pending_cases,average_compensation_delay_days,rehabilitation_completion_pct,resettlement_completion_pct,affected_families_rehabilitated,pending_approvals,approval_delay_days,stakeholder_response_delay_days,days_in_current_stage,possession_completion_pct,historical_delay_rate,days_remaining_to_target,previous_stage_delay_days
+CSV-HEALTHY-001,Healthy Highway Possession Project,Highway,Maharashtra,Pune,Possession,50.00,20,1,0,0,0,98.00,0,98.00,0,0,98.00,98.00,20,0,0,0,1,98.00,0.0100,180,0
+CSV-HEALTHY-002,Healthy Railway Survey Project,Railway,Tamil Nadu,Madurai,Survey,85.00,70,2,0,0,0,96.00,1,94.00,2,3,92.00,90.00,64,0,0,5,12,88.00,0.0500,240,2
+CSV-HEALTHY-003,Healthy Metro Award Project,Metro,Uttar Pradesh,Varanasi,Award,120.00,110,3,0,1,0,94.00,1,92.00,5,5,88.00,86.00,95,1,4,12,28,82.00,0.0800,210,4
+CSV-HEALTHY-004,Healthy Irrigation Possession Project,Irrigation,Gujarat,Surat,Possession,72.00,55,2,0,0,0,99.00,0,97.00,0,1,96.00,95.00,52,0,0,3,6,96.00,0.0200,300,0
+CSV-HEALTHY-005,Healthy Power Transmission Project,Power Transmission,Karnataka,Mysuru,Compensation,65.00,45,2,0,1,0,93.00,2,90.00,3,8,85.00,82.00,38,1,6,10,35,78.00,0.1000,190,5
+CSV-HEALTHY-006,Healthy Industrial Corridor Project,Industrial Corridor,Rajasthan,Jaipur,Rehabilitation & Resettlement,150.00,180,4,1,1,0,91.00,2,88.00,12,10,84.00,80.00,145,1,8,20,46,75.00,0.1200,220,8
+CSV-HEALTHY-007,Healthy Highway Notification Project,Highway,Telangana,Hyderabad,Notification,40.00,30,1,0,0,0,95.00,1,92.00,1,2,90.00,88.00,25,0,0,4,8,80.00,0.0400,365,1
+CSV-HEALTHY-008,Healthy Railway Objections Project,Railway,Madhya Pradesh,Indore,Objections,105.00,95,3,0,1,1,90.00,2,86.00,8,12,80.00,78.00,76,1,10,25,54,70.00,0.1500,200,12
+CSV-HEALTHY-009,Healthy Metro Compensation Project,Metro,Maharashtra,Nashik,Compensation,95.00,80,2,0,0,0,92.00,1,89.00,6,9,83.00,81.00,68,1,7,18,40,76.00,0.0900,175,6
+CSV-HEALTHY-010,Healthy Irrigation Award Project,Irrigation,Tamil Nadu,Coimbatore,Award,130.00,140,4,1,1,0,89.00,3,85.00,15,14,79.00,76.00,108,1,12,30,60,72.00,0.1800,195,15
+CSV-HIGH-001,High Risk Highway Compensation Project,Highway,Maharashtra,Pune,Compensation,800.00,1500,15,7,20,9,32.00,17,2.00,1000,145,5.00,5.00,10,12,170,500,318,1.00,1.0000,0,266
+CSV-HIGH-002,High Risk Railway Objections Project,Railway,Gujarat,Surat,Objections,650.00,1200,13,6,18,8,35.00,16,8.00,850,132,10.00,8.00,90,11,155,460,300,4.00,0.9500,14,240
+CSV-HIGH-003,High Risk Metro Award Project,Metro,Uttar Pradesh,Kanpur Nagar,Award,720.00,1350,14,7,19,9,30.00,17,5.00,950,140,8.00,6.00,70,12,165,480,310,3.00,0.9800,7,250
+CSV-HIGH-004,High Risk Industrial Corridor Project,Industrial Corridor,Telangana,Warangal,Rehabilitation & Resettlement,900.00,1700,16,7,21,9,34.00,17,3.00,1100,150,4.00,3.00,45,12,171,500,318,1.00,1.0000,0,266
+CSV-HIGH-005,High Risk Power Transmission Project,Power Transmission,Rajasthan,Jodhpur,Survey,580.00,1000,12,6,17,8,38.00,15,10.00,720,120,12.00,10.00,100,10,148,430,280,6.00,0.9200,21,225
+CSV-HIGH-006,High Risk Irrigation Notification Project,Irrigation,Madhya Pradesh,Gwalior,Notification,500.00,900,11,5,16,7,42.00,14,12.00,650,110,15.00,12.00,120,9,135,400,260,8.00,0.8800,30,210
+CSV-HIGH-007,High Risk Highway Possession Project,Highway,Tamil Nadu,Chennai,Possession,700.00,1400,15,7,20,9,33.00,16,4.00,980,142,6.00,5.00,60,12,168,490,315,2.00,0.9900,5,258
+CSV-HIGH-008,High Risk Railway Compensation Project,Railway,Karnataka,Belagavi,Compensation,620.00,1150,13,6,18,8,36.00,15,7.00,800,128,9.00,7.00,80,11,152,445,290,5.00,0.9400,12,235
+CSV-HIGH-009,High Risk Metro R and R Project,Metro,Gujarat,Vadodara,Rehabilitation & Resettlement,780.00,1450,14,7,19,9,31.00,17,3.00,1020,148,5.00,4.00,50,12,169,495,312,2.00,0.9700,3,260
+CSV-HIGH-010,High Risk Industrial Corridor Award Project,Industrial Corridor,Uttar Pradesh,Lucknow,Award,680.00,1250,13,6,18,8,37.00,16,6.00,880,135,8.00,6.00,75,11,158,470,305,4.00,0.9600,10,245

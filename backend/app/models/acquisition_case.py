@@ -23,6 +23,9 @@ class AcquisitionCase(Base):
     project_id: Mapped[UUID] = mapped_column(
         PostgreSQLUUID(as_uuid=True), ForeignKey("projects.id", ondelete="CASCADE"), nullable=False
     )
+    parcel_id: Mapped[UUID | None] = mapped_column(
+        PostgreSQLUUID(as_uuid=True), ForeignKey("land_parcels.id", ondelete="SET NULL"), nullable=True
+    )
     case_number: Mapped[str] = mapped_column(String(100), nullable=False)
     village: Mapped[str | None] = mapped_column(String(255), nullable=True)
     current_stage: Mapped[str | None] = mapped_column(String(100), nullable=True)
@@ -43,3 +46,4 @@ class AcquisitionCase(Base):
     )
 
     project: Mapped["Project"] = relationship(back_populates="acquisition_cases")
+    land_parcel: Mapped["LandParcel | None"] = relationship(back_populates="acquisition_cases")

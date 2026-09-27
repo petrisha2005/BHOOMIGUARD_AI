@@ -9,7 +9,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from app.db.session import get_db
-from app.models import AcquisitionCase
+from app.models import AcquisitionCase, LandParcel
 from app.schemas.acquisition_case import AcquisitionCaseCreate, AcquisitionCaseResponse, AcquisitionCaseUpdate
 from app.services.database import get_project_or_404
 
@@ -22,6 +22,16 @@ def get_case_or_404(case_id: UUID, db: Session) -> AcquisitionCase:
     if case is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Acquisition case not found")
     return case
+
+
+def validate_case_parcel(project_id: UUID, parcel_id: UUID | None, db: Session) -> None:
+    """Allow a case to link only to a parcel owned by the same project."""
+
+    if parcel_id is None:
+        return
+    parcel = db.get(LandParcel, parcel_id)
+    if parcel is None or parcel.project_id != project_id:
+        raise HTTPException(status_code=422, detail="Parcel must belong to the acquisition case project")
 
 
 @router.get("", response_model=list[AcquisitionCaseResponse])
@@ -45,6 +55,7 @@ def list_cases(
 @router.post("", response_model=AcquisitionCaseResponse, status_code=status.HTTP_201_CREATED)
 def create_case(case_in: AcquisitionCaseCreate, db: Session = Depends(get_db)) -> AcquisitionCase:
     get_project_or_404(case_in.project_id, db)
+    validate_case_parcel(case_in.project_id, case_in.parcel_id, db)
     case = AcquisitionCase(**case_in.model_dump(exclude_unset=True))
     db.add(case)
     try:
@@ -67,6 +78,8 @@ def update_case(case_id: UUID, case_in: AcquisitionCaseUpdate, db: Session = Dep
     if not changes:
         raise HTTPException(status_code=400, detail="At least one field must be provided for update")
     case = get_case_or_404(case_id, db)
+    if "parcel_id" in changes:
+        validate_case_parcel(case.project_id, changes["parcel_id"], db)
     for field, value in changes.items():
         setattr(case, field, value)
     case.updated_at = datetime.now(UTC).replace(tzinfo=None)

@@ -4,14 +4,15 @@ The application has JWT bearer authentication with bcrypt password verification.
 
 ## Provision the first officer account
 
-Use a trusted administrator terminal. The script prompts for a password privately; do not pass a password on the command line and do not add it to `.env`.
+Use a trusted administrator terminal after the PostgreSQL schema already exists. The script prompts for a password privately; do not pass a password on the command line and do not add it to `.env`.
 
-```powershell
-$env:PYTHONPATH = "$PWD\backend;$PWD\backend\.venv\Lib\site-packages"
-& "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.12_3.12.2800.0_x64__qbz5n2kfra8p0\python3.12.exe" scripts\provision_officer.py --name "Authorized Officer" --email "officer@example.gov.in"
+```bash
+BHOOMIGUARD_ALLOW_DEVELOPMENT_SEED=true \
+backend/.venv/bin/python scripts/provision_officer.py \
+  --name "Development Officer" --email "officer@example.gov.in"
 ```
 
-The script refuses to overwrite an existing account and enforces a minimum 12-character password. It prints no password, hash, database URL, or JWT secret.
+The script refuses to overwrite an existing account and enforces a minimum 12-character password. It prints no password, hash, database URL, or JWT secret. It is a development-only bootstrap helper, not a production user-management system.
 
 ## Enable authentication
 

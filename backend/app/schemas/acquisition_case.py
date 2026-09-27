@@ -10,6 +10,7 @@ from app.schemas.base import ORMResponse
 
 class AcquisitionCaseCreate(BaseModel):
     project_id: UUID
+    parcel_id: UUID | None = None
     case_number: str = Field(min_length=1, max_length=100)
     village: str | None = Field(default=None, max_length=255)
     current_stage: str | None = Field(default=None, max_length=100)
@@ -21,6 +22,7 @@ class AcquisitionCaseCreate(BaseModel):
 
 
 class AcquisitionCaseUpdate(BaseModel):
+    parcel_id: UUID | None = None
     case_number: str | None = Field(default=None, min_length=1, max_length=100)
     village: str | None = Field(default=None, max_length=255)
     current_stage: str | None = Field(default=None, max_length=100)
@@ -34,6 +36,7 @@ class AcquisitionCaseUpdate(BaseModel):
 class AcquisitionCaseResponse(ORMResponse):
     id: UUID
     project_id: UUID
+    parcel_id: UUID | None
     case_number: str
     village: str | None
     current_stage: str | None

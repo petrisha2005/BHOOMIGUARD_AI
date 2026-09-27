@@ -201,3 +201,27 @@ class ProjectImportPreviewResponse(BaseModel):
 
 class ProjectImportResult(BaseModel):
     created_count: int
+
+
+class BatchAnalysisProjectResult(BaseModel):
+    """One imported project's existing-ML batch outcome."""
+
+    project_id: UUID
+    project_code: str
+    name: str
+    status: str
+    risk_score: Decimal | None = None
+    delay_probability: Decimal | None = None
+    risk_category: str | None = None
+    recommendation_count: int = Field(ge=0)
+    alert_count: int = Field(ge=0)
+    error: str | None = None
+
+
+class BatchAnalysisResponse(BaseModel):
+    """Summary returned after a validated CSV is imported and analysed."""
+
+    total_projects: int = Field(ge=0)
+    processed_projects: int = Field(ge=0)
+    failed_projects: int = Field(ge=0)
+    results: list[BatchAnalysisProjectResult]

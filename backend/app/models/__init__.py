@@ -5,6 +5,7 @@ from app.models.alert import Alert
 from app.models.audit_log import AuditLog
 from app.models.base import Base
 from app.models.intervention import Intervention
+from app.models.land_parcel import LandParcel
 from app.models.prediction import Prediction
 from app.models.project import Project
 from app.models.recommendation import Recommendation
@@ -17,6 +18,7 @@ __all__ = [
     "AuditLog",
     "Base",
     "Intervention",
+    "LandParcel",
     "Prediction",
     "Project",
     "Recommendation",

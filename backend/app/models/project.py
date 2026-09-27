@@ -7,7 +7,7 @@ from decimal import Decimal
 from uuid import UUID
 
 from sqlalchemy import DateTime, Integer, Numeric, String, text
-from sqlalchemy.dialects.postgresql import UUID as PostgreSQLUUID
+from sqlalchemy.dialects.postgresql import JSONB, UUID as PostgreSQLUUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
@@ -65,6 +65,7 @@ class Project(Base):
     )
     latitude: Mapped[Decimal | None] = mapped_column(Numeric(10, 7), nullable=True)
     longitude: Mapped[Decimal | None] = mapped_column(Numeric(10, 7), nullable=True)
+    corridor_geometry: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime, nullable=False, server_default=text("now()")
     )
@@ -77,6 +78,7 @@ class Project(Base):
     recommendations: Mapped[list["Recommendation"]] = relationship(back_populates="project")
     alerts: Mapped[list["Alert"]] = relationship(back_populates="project")
     interventions: Mapped[list["Intervention"]] = relationship(back_populates="project")
+    land_parcels: Mapped[list["LandParcel"]] = relationship(back_populates="project")
 
     # Legacy API/report aliases retained while callers migrate to canonical ML names.
     @property
